@@ -60,7 +60,7 @@ def parseHtml(url, outfile):
             writer.writerow([url, tsnr])
 
 
-# @flow(name="Flow for gethtml pipeline", task_runner=DaskTaskRunner(address=client.scheduler.address))
+@flow(name="Flow for gethtml pipeline", task_runner=DaskTaskRunner(address=client.scheduler.address))
 def pipeline(i1, i2):
     outfile = f"./datas/samples_tsnr_{i1}-{i2}.csv"
     df = pd.read_csv("./samples_index.csv")
