@@ -28,7 +28,7 @@ jobs:
         pip install pandas beautifulsoup4
         mkdir datas
         ls /home/runner/work/cz_list/cz_list
-        python ./cz_simples_text.py
+        python cz_simple_text.py
 #        scrapy crawl recordsbot -o data.csv
 
     - name: Upload artifact
