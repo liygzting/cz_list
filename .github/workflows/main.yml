@@ -27,6 +27,7 @@ jobs:
       run: |
         pip install pandas beautifulsoup4
         mkdir datas
+        ls /home/runner/work/cz_list/cz_list
         python ./cz_simples_text.py
 #        scrapy crawl recordsbot -o data.csv
 
