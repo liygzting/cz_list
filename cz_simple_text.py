@@ -71,7 +71,7 @@ def pipeline(i1, i2):
     for url in urls:
         print(url)
         # parseHtml.submit(url)
-        parseHtml(url)
+        parseHtml(url, outfile)
 
 
 if __name__ == '__main__':
