@@ -2,10 +2,10 @@ import csv
 import bs4
 import requests
 import pandas as pd
-from dask.distributed import Client
-from prefect import task, flow
-from prefect_dask import DaskTaskRunner
-import threading
+# from dask.distributed import Client
+# from prefect import task, flow
+# from prefect_dask import DaskTaskRunner
+# import threading
 
 # client = Client(n_workers=8, threads_per_worker=1, processes=False)
 
@@ -47,7 +47,7 @@ def getHtml(url):
 
 
 # @task(name="解析html")
-def parseHtml(url):
+def parseHtml(url, outfile):
     html = getHtml(url)
     print(html)
     if html:
@@ -56,24 +56,25 @@ def parseHtml(url):
         html_text = bs4.BeautifulSoup(html.text, 'html.parser')
         tsnr = html_text.find('div', attrs={'class': 'tsnr'}).text
         tsnr = tsnr.replace("\n", "")
-        with open("samples_tsnr.csv", "a", encoding='utf-8') as file:
+        with open(outfile, "a", encoding='utf-8') as file:
             writer = csv.writer(file)
             writer.writerow([url, tsnr])
 
 
 # @flow(name="Flow for gethtml pipeline", task_runner=DaskTaskRunner(address=client.scheduler.address))
-def pipeline(filename: str):
-    df = pd.read_csv(filename)
+def pipeline(i1, i2):
+    outfile = f"./datas/samples_tsnr_{i1}-{i2}.csv"
+    df = pd.read_csv("samples_index.csv")
     # df_done = pd.read_csv("samples_tsnr.csv", header=None, names=["url", "text"])
     # urls = [fi for fi in df["链接"].to_list() if fi not in df_done["url"]]
-    urls = df["链接"].to_list()[:2000]
+    urls = df["链接"].to_list()[i1:i2]
     for url in urls:
         print(url)
         # parseHtml.submit(url)
         parseHtml(url)
 
 
-pipeline(filename="samples_index.csv")
+pipeline(i1=0,i2=2000)
 
 # def main(filename):
 #     df = pd.read_csv(filename)
