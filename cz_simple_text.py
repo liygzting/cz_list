@@ -2,6 +2,7 @@ import csv
 import bs4
 import requests
 import pandas as pd
+
 # from dask.distributed import Client
 # from prefect import task, flow
 # from prefect_dask import DaskTaskRunner
@@ -17,6 +18,14 @@ headers = {
     'User-Agent': 'Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:75.0) Gecko/20100101 Firefox/75.0',
     'Connection': 'keep-alive'
 }
+
+# headers = {
+#     "User-Agent": "Mozilla/5.0 (iPhone; CPU iPhone OS 11_0 like Mac OS X) AppleWebKit/604.1.38 (KHTML, like Gecko) Version/11.0 Mobile/15A372 Safari/604.1",
+#     "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,/;q=0.8",
+#     "Accept-Language": "zh-CN,zh;q=0.8,en-US;q=0.5,en;q=0.3",
+#     "Accept-Encoding": "gzip, deflate",
+#     "Connection": "keep-alive",
+# }
 
 
 # def get_proxy():
@@ -35,7 +44,7 @@ def getHtml(url):
     # proxy = get_proxy().get("proxy")
     while retry_count > 0:
         try:
-            html = requests.get(f'https://www.12365auto.com{url}', headers=headers)
+            html = requests.get(f'https://www.12365auto.com{url}', headers=headers, timeout=3)
             # 使用代理访问
             return html
         except Exception:
@@ -74,7 +83,7 @@ def pipeline(i1, i2):
 
 
 if __name__ == '__main__':
-    pipeline(i1=2000, i2=4000)
+    pipeline(i1=4000, i2=6000)
 
 # def main(filename):
 #     df = pd.read_csv(filename)
