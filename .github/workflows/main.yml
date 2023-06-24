@@ -25,11 +25,10 @@ jobs:
 
     - name: Run a single-line script
       run: |
-        pip install pandas beautifulsoup4
+        pip install pandas beautifulsoup4 requests csv
         mkdir datas
         ls /home/runner/work/cz_list/cz_list
         python cz_simple_text.py
-#        scrapy crawl recordsbot -o data.csv
 
     - name: Upload artifact
       uses: actions/upload-artifact@v3
