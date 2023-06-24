@@ -2,12 +2,12 @@ import csv
 import bs4
 import requests
 import pandas as pd
-# from dask.distributed import Client
-# from prefect import task, flow
-# from prefect_dask import DaskTaskRunner
+from dask.distributed import Client
+from prefect import task, flow
+from prefect_dask import DaskTaskRunner
 # import threading
 
-# client = Client(n_workers=8, threads_per_worker=1, processes=False)
+client = Client(n_workers=8, threads_per_worker=1, processes=False)
 
 headers = {
     # 'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',
@@ -45,7 +45,7 @@ def getHtml(url):
     return None
 
 
-# @task(name="解析html")
+@task(name="解析html")
 def parseHtml(url, outfile):
     html = getHtml(url)
     print(html)
@@ -60,7 +60,7 @@ def parseHtml(url, outfile):
             writer.writerow([url, tsnr])
 
 
-# @flow(name="Flow for gethtml pipeline", task_runner=DaskTaskRunner(address=client.scheduler.address))
+@flow(name="Flow for gethtml pipeline", task_runner=DaskTaskRunner(address=client.scheduler.address))
 def pipeline(i1, i2):
     outfile = f"./datas/samples_tsnr_{i1}-{i2}.csv"
     df = pd.read_csv("./samples_index.csv")
@@ -69,12 +69,12 @@ def pipeline(i1, i2):
     urls = df["链接"].to_list()[i1:i2]
     for url in urls:
         print(url)
-        # parseHtml.submit(url)
-        parseHtml(url, outfile)
+        parseHtml.submit(url, outfile)
+        # parseHtml(url, outfile)
 
 
 if __name__ == '__main__':
-    pipeline(i1=0, i2=2000)
+    pipeline(i1=2000, i2=4000)
 
 # def main(filename):
 #     df = pd.read_csv(filename)
