@@ -74,7 +74,8 @@ def pipeline(i1, i2):
         parseHtml(url)
 
 
-pipeline(i1=0,i2=2000)
+if __name__ == '__main__':
+    pipeline(i1=0, i2=2000)
 
 # def main(filename):
 #     df = pd.read_csv(filename)
