@@ -64,7 +64,7 @@ def parseHtml(url, outfile):
 # @flow(name="Flow for gethtml pipeline", task_runner=DaskTaskRunner(address=client.scheduler.address))
 def pipeline(i1, i2):
     outfile = f"./datas/samples_tsnr_{i1}-{i2}.csv"
-    df = pd.read_csv("samples_index.csv")
+    df = pd.read_csv("./samples_index.csv")
     # df_done = pd.read_csv("samples_tsnr.csv", header=None, names=["url", "text"])
     # urls = [fi for fi in df["链接"].to_list() if fi not in df_done["url"]]
     urls = df["链接"].to_list()[i1:i2]
