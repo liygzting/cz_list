@@ -83,7 +83,7 @@ def pipeline(i1, i2):
 
 
 if __name__ == '__main__':
-    pipeline(i1=18000, i2=20000)
+    pipeline(i1=14000, i2=16000)
 
 # def main(filename):
 #     df = pd.read_csv(filename)
