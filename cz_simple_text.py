@@ -103,3 +103,18 @@ if __name__ == '__main__':
 #
 # if __name__ == '__main__':
 #     main(filename="samples_index.csv")
+
+res_sel["典型问题"] = res_sel["典型问题"].str[:-1].str.split(',')
+
+# convert list of pd.Series then stack it
+res_ = (res_sel.set_index(["投诉内容"])["典型问题"].apply(pd.Series).stack().reset_index().drop('level_1', axis=1).rename(columns={0:"典型问题"}))
+res_["labels_count"] = res_.groupby(["典型问题"]).transform("count")
+res_["典型问题"].value_counts().reset_index()
+res[res["投诉内容"].str.contains("2023年提车比亚迪秦plus21款DM-i55km旗舰型，当时购买价款125800元")]
+
+labels = []
+for d in data:
+    v = d["value"]
+    for it in d["items"]:
+        id = it["id"]
+        labels.append(f"{v}{id}")
