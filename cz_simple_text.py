@@ -3,13 +3,6 @@ import bs4
 import requests
 import pandas as pd
 
-# from dask.distributed import Client
-# from prefect import task, flow
-# from prefect_dask import DaskTaskRunner
-# import threading
-
-# client = Client(n_workers=8, threads_per_worker=1, processes=False)
-
 headers = {
     # 'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',
     'Accept': '*/*',
@@ -19,24 +12,7 @@ headers = {
     'Connection': 'keep-alive'
 }
 
-# headers = {
-#     "User-Agent": "Mozilla/5.0 (iPhone; CPU iPhone OS 11_0 like Mac OS X) AppleWebKit/604.1.38 (KHTML, like Gecko) Version/11.0 Mobile/15A372 Safari/604.1",
-#     "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,/;q=0.8",
-#     "Accept-Language": "zh-CN,zh;q=0.8,en-US;q=0.5,en;q=0.3",
-#     "Accept-Encoding": "gzip, deflate",
-#     "Connection": "keep-alive",
-# }
 
-
-# def get_proxy():
-#     return requests.get("http://127.0.0.1:5010/get/").json()
-#
-#
-# def delete_proxy(proxy):
-#     requests.get("http://127.0.0.1:5010/delete/?proxy={}".format(proxy))
-#
-
-# your spider code
 # @task(name="获取html")
 def getHtml(url):
     # 设置抓取的次数
@@ -85,24 +61,6 @@ def pipeline(i1, i2):
 if __name__ == '__main__':
     pipeline(i1=14000, i2=16000)
 
-# def main(filename):
-#     df = pd.read_csv(filename)
-#     df_done = pd.read_csv("samples_tsnr.csv", header=None, names=["url", "text"])
-#     urls = [fi for fi in df["链接"].to_list() if fi not in df_done["url"]]
-#     threads = []
-#     for url in urls:
-#         t = threading.Thread(target=parseHtml, args=(url,))
-#         threads.append(t)
-#
-#     for t in threads:
-#         t.start()
-#
-#     for t in threads:
-#         t.join()
-#
-#
-# if __name__ == '__main__':
-#     main(filename="samples_index.csv")
 
 res_sel["典型问题"] = res_sel["典型问题"].str[:-1].str.split(',')
 
